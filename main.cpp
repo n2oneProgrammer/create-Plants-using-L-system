@@ -8,7 +8,7 @@
 
 std::string preprocessingCommands(std::string commands, std::string **gramma, int count) {
     std::string result;
-    for (char cmd:commands) {
+    for (char cmd: commands) {
         bool finded = false;
         for (int i = 0; i < count; i++) {
             if (cmd == (*gramma)[i][0]) {
@@ -21,7 +21,7 @@ std::string preprocessingCommands(std::string commands, std::string **gramma, in
             result += cmd;
         }
     }
-    std::cout << result<<"\n";
+    std::cout << result << "\n";
     return result;
 }
 
@@ -30,7 +30,6 @@ void runCommands(turtle *turtle, sf::RenderWindow *windows, char cmd) {
         case 'F':
             turtle->walk(windows, distanceWalk);
             break;
-
         case '+':
             turtle->turn(-angle);
             break;
@@ -44,13 +43,13 @@ void runCommands(turtle *turtle, sf::RenderWindow *windows, char cmd) {
             turtle->teleport();
             break;
         default:
-            std::cout << "ERROR";
+            std::cout << "ERROR " << cmd << "\n";
     }
 
 }
 
-void createimg(turtle *turtle, sf::RenderWindow *windows, const std::string& commands) {
-    for (char cmd:commands) {
+void createimg(turtle *turtle, sf::RenderWindow *windows, const std::string &commands) {
+    for (char cmd: commands) {
         runCommands(turtle, windows, cmd);
     }
 }
@@ -80,16 +79,16 @@ int main() {
     for (int i = 0; i < 7; i++) {
         commands = preprocessingCommands(commands, gramma, 2);
     }
-    std::cout<<commands<<"\n";
+    std::cout << commands << "\n";
 
-    bool generate= false;
+    bool generate = false;
     while (window.isOpen()) {
         sf::Event event{};
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-        if(!generate) {
+        if (!generate) {
             window.clear();
             turtle turtle(250, 700);
             createimg(&turtle, &window, commands);
